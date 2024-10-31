@@ -1,0 +1,44 @@
+.thumbnail {
+	float: left;
+	position: relative;
+	width: 112px;
+	height: 160px;
+	background: 0x444;
+}
+
+.picture .image,
+.thumbnail .image {
+	float: left;
+	position: relative;
+	background: url(images/shadow.png) no-repeat bottom right !important;
+	background: url(images/shadow.gif) no-repeat bottom right;
+	margin: 10px 0 0 10px !important;
+	margin: 10px 0 0 5px;
+}
+
+.picture .image img,
+.thumbnail .image img {
+	display: block;
+	position: relative;
+	border: 1px solid #a9a9a9;
+	background-color: #fff;
+	margin: -6px 6px 6px -6px;
+	padding: 4px;
+}
+
+.caption, .clear, .feedback, .storycontent p, .postmetadata {
+	clear: both;
+}
+
+.clear {
+	height: 0;
+}
+
+.caption {
+	font-size: 70%;
+	margin: 6px;
+}
+
+#editsubtitles th {
+	text-align: left;
+}

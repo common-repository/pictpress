@@ -1,0 +1,76 @@
+PictPress is a <a href="http://www.wordpress.org/">WordPress 1.2</a> plugin that automatically generates a post with thumbnails and picture posts for all images found in a directory. Thumbnails and pictures are resized on the fly and stored in a cache directory. For an example see my <a href="/2004/08/29/treble">post with pictures of a Treble concert</a>.
+<!--more-->
+<strong>Requirements</strong>
+<ul>
+<li>PictPress needs either the ImageMagick <code>convert</code> program or the GD2 library to resize images.</li>
+<li>PictPress optionally uses <code>exif_read_data</code> or the <code>rdjpgcom</code> program to read comments from the images.; <code>exif_read_data</code> is also optionally used to read EXIF data like picture date etc.</li>
+<li>You will need some other means to upload images to subdirectories of the WordPress upload directory.</li>
+</ul>
+
+<strong>Installation</strong>
+<ol>
+<li>Unzip <a href="/pictpress-0.99.zip"><code>pictpress.zip</code></a> in the plugin directory of your WordPress site. This creates a <code>pictpress</code> plus a <code>pictpress.php</code> file.</li>
+<li>Go to the Plugin admin page and press the install link.</li>
+<li>Enable the PictPress plugin on the Plugins admin page.</li>
+<li>Make sure the web server will have write access to the upload directory for PictPress to be able to create the cache directory there.</li>
+</ol>
+
+<strong>Usage</strong>
+<ol>
+<li>First upload one or more JPEG images to a subdirectory of the WordPress upload directory according to the setings for <code>pp_image_dir</code> 
+(I use <code>%year%/%monthnum%/%postname%</code> myself).</li>
+<li>Then create a new post that will use this directory (in my case by maing sure that date and Post Slug are the same as used for the directory).</li>
+<li>When pressing <em>Publish</em>, thumbnails for all images will be appended to the post (with a <code>--more--</code> marker after the first five thumbnails) and for each image a picture post will be generated. The thumbnails have links to the picture posts and the pictures have links to the full resolution images.</li>
+<li>Titles for the picture posts are either set to the JPEG comment or to the image filename.</li>
+<li>Captions under the thumbnails are set to the corresponding picture post titles and follow updates being made to the titles.</li>
+<li>When updating a post, any new images in the image directory are merged with the existing post and the thumbnails are replaced by the new set. This is the way to include new pictures after these have been added to the image directory. Edits to posts between the PictPress comment tags are lost; other edits are kept.</li>
+<li>Picture posts are suppressed from the post overview pages and in principle should only appear on pages of their own.</li>
+</ol>
+
+<strong>Configuration</strong>
+
+There are a number of options that can be confgured via the PictPress options form that can be reached from the WordPress options pages.
+<ul>
+<li>Location of image directory</li>
+<li>Location of cache directory for resized images</li>
+<li>URL used for resized images</li>
+<li>Size of thumbnails and images on picture pages</li>
+<li>Maximum number of thumbnails per page</li>
+<li>Number of thumbnails before <em>more...</em></li>
+<li>Image resize method, ImageMagick or GD2.</li>
+<li>Strings for use in title, alt attribute,  captions.</li>
+<li>Protect images against referrers from other web sites yes/no.</li>
+<li>Automatically insert CSS header yes/no</li>
+<li>Generate a single post for all pictures yes/no; this switches back to the behaviour of the previous version, see the <a href="http://www.curioso.org/2004/05/28/pictpress-091/">PictPress 0.91 description</a>.
+</li>
+</ul>
+The strings used for title etc. can contain the following variables:
+<ul>
+<li>%aperture%,  EXIF aperture setting</li>
+<li>%comment%, JPEG comment</li>
+<li>%date%, EXIF DateTimeOriginal</li>
+<li>%digitized%, EXIF DateTimeDigitized</li>
+<li>%edited%, edited date</li>
+<li>%exif%,  table with all info returned by <code>exif_read_data</code></li>
+<li>%exposure%, EXIF ExposureTime</li>
+<li>%focallength%, EXIF FocalLength</li>
+<li>%height%, height of image in pixels</li>
+<li>%iso%, EXIF ISOSpeedRatings</li>
+<li>%make%, camera manufactureer</li>
+<li>%model%, camera model</li>
+<li>%modified%, file modified date</li>
+<li>%size%, file size in bytes</li>
+<li>%sizekb%, file size in kilobytes</li>
+<li>%sizemb%, file size in megabytes</li>
+<li>%title%, title of picture post</li>
+<li>%width%, width of image in pixels</li>
+</ul>
+
+<strong>Template Functions</strong>
+
+The following template functions can be used in <code>index.php</code> (I put them at the top of the menu section myself):
+<ul>
+<li><code>pp_prev_thumb()</code>, generate thumbnail for previous picture post if applicable.</li>
+<li><code>pp_next_thumb()</code>, generate thumbnail for next picture post if applcable.</li>
+<li><code>pp_navigation()</code>, generate navigation section with link to post with thumbnails, thumbnail for previous picture post, and thumbnail for next picture post, all if applicable.</li>
+</ul>
